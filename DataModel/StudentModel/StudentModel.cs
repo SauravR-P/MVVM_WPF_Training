@@ -13,8 +13,7 @@ namespace DataModel.StudentModel
         private List<Skill> _skills;
         public string Id
         {
-            get { return _id; }
-            set { _id = value; }
+            get { return _id; }set { _id = value; }
         }
         public string Name
         {

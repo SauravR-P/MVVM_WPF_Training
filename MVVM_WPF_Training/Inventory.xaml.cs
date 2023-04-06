@@ -1,5 +1,9 @@
-﻿using System;
+﻿using BusinessModel;
+using DataModel.CSV_Demo;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +23,19 @@ namespace View
     /// </summary>
     public partial class Inventory : Window
     {
+        private InventoryVM inventoryVM;
         public Inventory()
         {
             InitializeComponent();
+            inventoryVM = new InventoryVM();
+
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            
+            
         }
     }
 }

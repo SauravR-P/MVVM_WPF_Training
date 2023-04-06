@@ -33,14 +33,7 @@ namespace MVVM_WPF_Training
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var id = Convert.ToInt32(ID.Text);
-            //var name = Name.Text;
-            //var description = Description.Text;
-            //var stock = Convert.ToInt32(AvailableStock.Text);
-            //var price = Convert.ToInt32(Prices.Text);
-
-            //inventories.Add(new Inventory { Id = id, Name = name, Description = description, AvailableStock = stock, Price = price });
-            //_inventoryVM.WriteCsv(inventories);
+         
 
 
         }
