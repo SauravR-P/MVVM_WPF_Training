@@ -1,0 +1,12 @@
+﻿<Application x:Class="MVVM_WPF_Training.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MVVM_WPF_Training"
+             xmlns:local1="clr-namespace:BusinessModel;assembly=BusinessModel"
+             
+             StartupUri="Inventory.xaml">
+    <!--StartupUri="Student.xaml">-->
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
