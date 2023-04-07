@@ -24,18 +24,29 @@ namespace View
     public partial class Inventory : Window
     {
         private InventoryVM inventoryVM;
+
+
         public Inventory()
         {
             InitializeComponent();
             inventoryVM = new InventoryVM();
 
         }
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            
+            inventoryVM.WriteCSVFile();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var a = ivnGrid.SelectedItem;
+            inventoryVM.Add_Item((DataModel.CSV_Demo.Inventory)a);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var a = ivnGrid.SelectedItem;
+            inventoryVM.Update_Item((DataModel.CSV_Demo.Inventory)a);
         }
     }
 }

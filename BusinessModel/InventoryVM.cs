@@ -1,40 +1,157 @@
-﻿using DataModel.CSV_Demo;
+﻿using Commands;
+using CsvHelper;
+using DataModel.CSV_Demo;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BusinessModel
 {
-    public class InventoryVM  : INotifyPropertyChanged
+    public class InventoryVM : INotifyPropertyChanged
     {
-        Inventory_Binding Inventory_Binding = new Inventory_Binding();
-        private ObservableCollection<DataModel.CSV_Demo.Inventory> _inventories;
+        public static string path = "C:\\Users\\SAURAMES\\Downloads\\UsingWPF\\Inventory.csv";
 
+        private ICommand _clickcommand;
+        DataModel.CSV_Demo.Inventory _inventory;
+        private ObservableCollection<DataModel.CSV_Demo.Inventory> _inventoryVMs;
+        public ObservableCollection<DataModel.CSV_Demo.Inventory> InventoryVMs { get { return _inventoryVMs; } set { _inventoryVMs = value; OnPropertyChange("InventoryVMs"); } }
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public ObservableCollection<DataModel.CSV_Demo.Inventory> Inventories 
-        {
-            get { return _inventories; }
-
-            set { _inventories = value;OnPropertyChange("Inventories"); }
-        }
-
 
         public InventoryVM()
         {
-            Inventories = Inventory_Binding.ReadCSVFile();
+            _inventory = new();
+            InventoryVMs = _inventory.ReadCSVFile();
         }
-        public void WriteCsv()
+        public void Remove_Index(int index)
         {
-            Inventory_Binding.WriteCSVFile(Inventories);
+            try
+            {
+                InventoryVMs.RemoveAt(index);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message + "Delete Failed");
+            }
+
+        }
+        public void Add_Item(DataModel.CSV_Demo.Inventory inventory)
+        {
+            try
+            {
+                var existingValue = InventoryVMs.FirstOrDefault(x => x.Id == inventory.Id);
+                if (existingValue ==null)
+                {
+                    InventoryVMs.Add(inventory);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message + "Add Failed");
+            }
+        }
+        public void Update_Item(DataModel.CSV_Demo.Inventory inventory)
+        {
+
+            try
+            {
+                var existingValue = InventoryVMs.FirstOrDefault(x => x.Id == inventory.Id);
+                if (existingValue != null)
+                {
+                    InventoryVMs.RemoveAt(inventory.Id);
+                    existingValue.Name = inventory.Name;
+                    existingValue.Description = inventory.Description;
+                    existingValue.Price = inventory.Price;
+                    existingValue.AvailableStock = inventory.AvailableStock;
+                    InventoryVMs.Add(existingValue);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message + "Update Failed");
+            }
+        }
+
+        public void WriteCSVFile()
+        {
+            using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
+            using (CsvWriter cw = new CsvWriter(sw))
+            {
+                cw.WriteHeader<Inventory>();
+                cw.NextRecord();
+                foreach (Inventory inv in InventoryVMs)
+                {
+                    cw.WriteRecord<Inventory>(inv);
+                    cw.NextRecord();
+
+                }
+
+            }
         }
         private void OnPropertyChange(string propertyName)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
+        private bool CanClick()
+        {
+            return true;
+        }
+        public ICommand ClickCommand_Delete
+        {
+            get
+            {
+                if (_clickcommand == null)
+                {
+                    _clickcommand = new RelayCommand(
+                        param => Remove_Index((int)param),
+                        param => CanClick());
+                }
+                return _clickcommand;
+            }
+        }
+        public ICommand ClickCommand_Add
+        {
+            get
+            {
+                if (_clickcommand == null)
+                {
+                    _clickcommand = new RelayCommand(
+                        param => Add_Item((Inventory)param),
+                        param => CanClick());
+                }
+                return _clickcommand;
+            }
+        }
+        public ICommand ClickCommand_Update
+        {
+            get
+            {
+                if (_clickcommand == null)
+                {
+                    _clickcommand = new RelayCommand(
+                        param => Update_Item((Inventory)param),
+                        param => CanClick());
+                }
+                return _clickcommand;
+            }
+        }
+
+
+
     }
 }
