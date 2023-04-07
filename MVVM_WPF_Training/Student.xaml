@@ -36,7 +36,7 @@
         <Label Content="{Binding Heading}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center" FontSize="35"/>
         <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Students}" 
-                  ItemTemplate="{StaticResource studentNameLevel}" ItemTemplate="{StaticResource }">
+                  ItemTemplate="{StaticResource studentNameLevel}">
         </TreeView>
         <Button  Grid.Row="2" Grid.Column="0" Content="Clickme" Command="{Binding Path = ClickCommand_ChangeHeading}"/>
         <DataGrid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" ItemsSource="{Binding Students}"/>
