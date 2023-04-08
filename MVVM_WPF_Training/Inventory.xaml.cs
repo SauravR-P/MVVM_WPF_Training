@@ -23,30 +23,31 @@ namespace View
     /// </summary>
     public partial class Inventory : Window
     {
-        private InventoryVM inventoryVM;
+       // private IInventoryVM _inventoryVM;
 
 
-        public Inventory()
+        public Inventory()//IInventoryVM inventoryVM)
         {
             InitializeComponent();
-            inventoryVM = new InventoryVM();
+           // _inventoryVM = inventoryVM;
+            
 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            inventoryVM.WriteCSVFile();
+            //_inventoryVM.WriteCSVFile();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            var a = ivnGrid.SelectedItem;
-            inventoryVM.Add_Item((DataModel.CSV_Demo.Inventory)a);
+            //var a = ivnGrid.SelectedItem;
+            //inventoryVM.Add_Item((DataModel.CSV_Demo.Inventory)a);
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            var a = ivnGrid.SelectedItem;
-            inventoryVM.Update_Item((DataModel.CSV_Demo.Inventory)a);
+            //var a = ivnGrid.SelectedItem;
+           // inventoryVM.Update_Item((DataModel.CSV_Demo.Inventory)a);
         }
     }
 }

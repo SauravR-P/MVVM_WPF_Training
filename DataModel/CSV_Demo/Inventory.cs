@@ -12,7 +12,7 @@ namespace DataModel.CSV_Demo
 {
     public class Inventory : INotifyPropertyChanged
     {
-        public static string path = "C:\\Users\\SAURAMES\\Downloads\\UsingWPF\\Inventory.csv";
+        public static string path = "C:\\Users\\SAURAMES\\source\\repos\\MVVM_WPF_Training\\Inventory.csv";
 
         private int _id, availableStock, price;
         private string name, description;

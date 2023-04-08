@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessModel.DILayer;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,11 @@ namespace MVVM_WPF_Training
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            IocKernel.Initialize(new NinjectBindings());
+
+            base.OnStartup(e);
+        }
     }
 }

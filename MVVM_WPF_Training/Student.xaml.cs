@@ -22,20 +22,15 @@ namespace MVVM_WPF_Training
     /// </summary>
     public partial class MainWindow : Window
     {
-        //public List<Var> inventories { get; set; }
-        private InventoryVM _inventoryVM;
+      
         public MainWindow()
         {
             InitializeComponent();
-            //inventories = new();
-            _inventoryVM = new InventoryVM();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-         
-
-
+       
         }
     }
 }

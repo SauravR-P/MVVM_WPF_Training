@@ -1,4 +1,5 @@
-﻿using Commands;
+﻿using BackgroundService;
+using Commands;
 using CsvHelper;
 using DataModel.CSV_Demo;
 using System;
@@ -17,18 +18,29 @@ namespace BusinessModel
 {
     public class InventoryVM : INotifyPropertyChanged
     {
-        public static string path = "C:\\Users\\SAURAMES\\Downloads\\UsingWPF\\Inventory.csv";
+        private IDate_TimeService _datetimeservice;
 
+        public static string path = "C:\\Users\\SAURAMES\\source\\repos\\MVVM_WPF_Training\\Inventory.csv";
         private ICommand _clickcommand;
         DataModel.CSV_Demo.Inventory _inventory;
         private ObservableCollection<DataModel.CSV_Demo.Inventory> _inventoryVMs;
         public ObservableCollection<DataModel.CSV_Demo.Inventory> InventoryVMs { get { return _inventoryVMs; } set { _inventoryVMs = value; OnPropertyChange("InventoryVMs"); } }
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public InventoryVM()
+        private DateTime currDate;
+        public DateTime CurrDate
         {
+            get { return currDate; }
+            set { currDate = value; OnPropertyChange("CurrDate"); }
+        }
+
+
+        public InventoryVM(IDate_TimeService datetimeservice)
+        {
+            _datetimeservice = datetimeservice;
+            CurrDate = datetimeservice.GetDate();
             _inventory = new();
             InventoryVMs = _inventory.ReadCSVFile();
+
         }
         public void Remove_Index(int index)
         {
@@ -48,7 +60,7 @@ namespace BusinessModel
             try
             {
                 var existingValue = InventoryVMs.FirstOrDefault(x => x.Id == inventory.Id);
-                if (existingValue ==null)
+                if (existingValue == null)
                 {
                     InventoryVMs.Add(inventory);
                 }
@@ -83,7 +95,6 @@ namespace BusinessModel
                 throw new Exception(ex.Message + "Update Failed");
             }
         }
-
         public void WriteCSVFile()
         {
             using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
@@ -145,6 +156,19 @@ namespace BusinessModel
                 {
                     _clickcommand = new RelayCommand(
                         param => Update_Item((Inventory)param),
+                        param => CanClick());
+                }
+                return _clickcommand;
+            }
+        }
+        public ICommand ClickCommand_SaveChanges
+        {
+            get
+            {
+                if (_clickcommand == null)
+                {
+                    _clickcommand = new RelayCommand(
+                        param => WriteCSVFile(),
                         param => CanClick());
                 }
                 return _clickcommand;

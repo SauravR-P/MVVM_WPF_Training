@@ -7,6 +7,6 @@
              StartupUri="Inventory.xaml">
     <!--StartupUri="Student.xaml">-->
     <Application.Resources>
-         
+        <local1:ViewModelLocator x:Key="ViewModelLocator"/>
     </Application.Resources>
 </Application>
