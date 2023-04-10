@@ -23,14 +23,9 @@
         </DataGrid>
 
         <Button Grid.Column="0" Background="PaleVioletRed" Grid.Row="1" Height="30" Width="50" Content="Delete" Command="{Binding ClickCommand_Delete}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Margin="137,10,213,104" ></Button>
-        <Button Grid.Column="0" Background="Aqua" Grid.Row="1" Height="30" Width="50" Content="Add" Command="{Binding ClickCommand_Add}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Margin="82,10,268,104" ></Button>
-        <Button Background="CornflowerBlue" Grid.Column="0" Grid.Row="1" Height="30" Width="50" Content="Update" Command="{Binding ClickCommand_Update}" CommandParameter="{Binding ElementName=ivnGrid ,Path= SelectedItem }" Margin="27,10,323,104" ></Button>
+        <Button Grid.Column="0" Background="Aqua" Grid.Row="1" Height="30" Width="50" Content="Add" Command="{Binding ClickCommand_Add}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedItem }" Margin="82,10,268,104" ></Button>
+        <Button Background="CornflowerBlue" Grid.Column="0" Grid.Row="1" Height="30" Width="50" Content="Update" Command="{Binding ClickCommand_Update}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedItem }" Margin="27,10,323,104" ></Button>
         <Button Background="GreenYellow" Grid.Column="0" Grid.Row="1" Height="30" Content="Save Changes"  Margin="40,57,226,57" Command="{Binding ClickCommand_SaveChanges}" />
-
-
-        <Button Grid.Row="1" Height="30" Width="50" Content="Add" Margin="107,99,243,15" Click="Button_Click_2"/>
-        <Button Grid.Row="1" Height="30" Width="50" Content="Update" Margin="27,99,323,15"
-                 Click="Button_Click_3"/>
         <Label Grid.Column="1" Height="50" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Aquamarine" Content="{Binding CurrDate}" Margin="0,0,10,85"/>
 
 

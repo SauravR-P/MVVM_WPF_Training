@@ -21,7 +21,7 @@ namespace BusinessModel
         private IDate_TimeService _datetimeservice;
 
         public static string path = "C:\\Users\\SAURAMES\\source\\repos\\MVVM_WPF_Training\\Inventory.csv";
-        private ICommand _clickcommand;
+        private ICommand _clickcommand_Del, _clickcommand_Update, _clickcommand_Add, _clickcommand_Save;
         DataModel.CSV_Demo.Inventory _inventory;
         private ObservableCollection<DataModel.CSV_Demo.Inventory> _inventoryVMs;
         public ObservableCollection<DataModel.CSV_Demo.Inventory> InventoryVMs { get { return _inventoryVMs; } set { _inventoryVMs = value; OnPropertyChange("InventoryVMs"); } }
@@ -32,7 +32,6 @@ namespace BusinessModel
             get { return currDate; }
             set { currDate = value; OnPropertyChange("CurrDate"); }
         }
-
 
         public InventoryVM(IDate_TimeService datetimeservice)
         {
@@ -77,10 +76,12 @@ namespace BusinessModel
 
             try
             {
+                InventoryVMs.RemoveAt(inventory.Id);
                 var existingValue = InventoryVMs.FirstOrDefault(x => x.Id == inventory.Id);
                 if (existingValue != null)
                 {
-                    InventoryVMs.RemoveAt(inventory.Id);
+                   
+                    existingValue.Id = inventory.Id;
                     existingValue.Name = inventory.Name;
                     existingValue.Description = inventory.Description;
                     existingValue.Price = inventory.Price;
@@ -126,52 +127,53 @@ namespace BusinessModel
         {
             get
             {
-                if (_clickcommand == null)
+                if (_clickcommand_Del == null)
                 {
-                    _clickcommand = new RelayCommand(
+                    _clickcommand_Del = new RelayCommand(
                         param => Remove_Index((int)param),
                         param => CanClick());
                 }
-                return _clickcommand;
+                return _clickcommand_Del;
             }
         }
         public ICommand ClickCommand_Add
         {
             get
             {
-                if (_clickcommand == null)
+                if (_clickcommand_Add == null)
                 {
-                    _clickcommand = new RelayCommand(
+                    _clickcommand_Add = new RelayCommand(
                         param => Add_Item((Inventory)param),
                         param => CanClick());
                 }
-                return _clickcommand;
+                return _clickcommand_Add;
             }
         }
         public ICommand ClickCommand_Update
         {
             get
             {
-                if (_clickcommand == null)
+                if (_clickcommand_Update == null)
                 {
-                    _clickcommand = new RelayCommand(
+                    _clickcommand_Update = new RelayCommand(
                         param => Update_Item((Inventory)param),
                         param => CanClick());
                 }
-                return _clickcommand;
+                return _clickcommand_Update;
             }
         }
         public ICommand ClickCommand_SaveChanges
         {
             get
             {
-                if (_clickcommand == null)
+                if (_clickcommand_Save == null)
                 {
-                    _clickcommand = new RelayCommand(
+                    if (_clickcommand_Save == null)
+                        _clickcommand_Save= new RelayCommand(
                         param => WriteCSVFile(),
                         param => CanClick());
                 }
-                return _clickcommand;
+                return _clickcommand_Save;
             }
         }
 

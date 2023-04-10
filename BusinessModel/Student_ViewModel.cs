@@ -23,7 +23,7 @@ namespace BusinessModel
                     Name ="Dhoni",
                     Id = "A007",
                     RollNo = "07",
-                    Skills = new List<Skill>(){ new Skill() { SkillName = "Helicopter Shot"} }
+                    Skills = new List<Skill>(){ new Skill() { SkillName = "Helicopter Shot", SubSkills = new List<SubSkills>(){ new SubSkills() {SubSkill = "WK" } } } }
 
                 },
                 new StudentModel()
@@ -31,14 +31,14 @@ namespace BusinessModel
                     Name ="Ganguly",
                     Id = "A001",
                     RollNo = "01",
-                    Skills = new List<Skill>(){ new Skill() { SkillName = "Offence"} }
+                    Skills = new List<Skill>(){ new Skill() {SkillName = "Offence", SubSkills = new List<SubSkills>(){ new SubSkills() {SubSkill = "WK" } } } }
                 },
                 new StudentModel()
                 {
                     Name ="Tendulkar",
                     Id = "A010",
                     RollNo = "10",
-                    Skills = new List<Skill>(){ new Skill() { SkillName = "Consistency"} }
+                    Skills = new List<Skill>(){ new Skill() { SkillName = "Consistency", SubSkills = new List<SubSkills>(){ new SubSkills() {SubSkill = "WK" } } } }
                 }
             };
         }

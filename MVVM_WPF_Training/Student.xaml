@@ -10,15 +10,23 @@
         <local:Student_ViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate x:Key="skilllevel">
+        <!--<DataTemplate x:Key="skilllevel">
             <TextBlock Text="{Binding Path=SkillName}"/>
+        </DataTemplate>-->
+        <DataTemplate x:Key="skilllevel1">
+            <TextBlock Text="{Binding Path=SubSkill}"/>
         </DataTemplate>
+        <HierarchicalDataTemplate x:Key="studentNameLevel1"
+                                  ItemsSource="{Binding SubSkills}"
+                                  ItemTemplate="{StaticResource skilllevel1}">
+            <TextBlock Text="{Binding Path=SkillName}"/>
+        </HierarchicalDataTemplate>
         <HierarchicalDataTemplate x:Key="studentNameLevel"
                                   ItemsSource="{Binding Skills}"
-                                  ItemTemplate="{StaticResource skilllevel}">
+                                  ItemTemplate="{StaticResource studentNameLevel1}">
             <TextBlock Text="{Binding Path=Name}"/>
-
         </HierarchicalDataTemplate>
+       
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
