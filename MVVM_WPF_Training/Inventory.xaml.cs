@@ -1,5 +1,6 @@
 ﻿using BusinessModel;
 using DataModel.CSV_Demo;
+using MVVM_WPF_Training;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,31 +24,17 @@ namespace View
     /// </summary>
     public partial class Inventory : Window
     {
-       // private IInventoryVM _inventoryVM;
-
-
-        public Inventory()//IInventoryVM inventoryVM)
+        
+        public Inventory()
         {
             InitializeComponent();
-           // _inventoryVM = inventoryVM;
-            
-
+           
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //_inventoryVM.WriteCSVFile();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            //var a = ivnGrid.SelectedItem;
-            //inventoryVM.Add_Item((DataModel.CSV_Demo.Inventory)a);
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            //var a = ivnGrid.SelectedItem;
-           // inventoryVM.Update_Item((DataModel.CSV_Demo.Inventory)a);
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();  
         }
     }
 }

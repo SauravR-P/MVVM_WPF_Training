@@ -27,6 +27,7 @@
         <Button Background="CornflowerBlue" Grid.Column="0" Grid.Row="1" Height="30" Width="50" Content="Update" Command="{Binding ClickCommand_Update}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedItem }" Margin="27,10,323,104" ></Button>
         <Button Background="GreenYellow" Grid.Column="0" Grid.Row="1" Height="30" Content="Save Changes"  Margin="40,57,226,57" Command="{Binding ClickCommand_SaveChanges}" />
         <Label Grid.Column="1" Height="50" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Aquamarine" Content="{Binding CurrDate}" Margin="0,0,10,85"/>
+        <Button Background= "Coral" Grid.Column="0" Grid.Row="1" Height="30" Content="To Student.Xaml"  Margin="40,104,226,10" Click="Button_Click" />
 
 
 
