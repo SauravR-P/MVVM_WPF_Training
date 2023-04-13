@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -19,20 +20,12 @@ namespace BusinessModel
     public class InventoryVM : INotifyPropertyChanged
     {
         private IDate_TimeService _datetimeservice;
-
         public static string path = "C:\\Users\\SAURAMES\\source\\repos\\MVVM_WPF_Training\\Inventory.csv";
         private ICommand _clickcommand_Del, _clickcommand_Update, _clickcommand_Add, _clickcommand_Save;
         DataModel.CSV_Demo.Inventory _inventory;
         private ObservableCollection<DataModel.CSV_Demo.Inventory> _inventoryVMs;
         public ObservableCollection<DataModel.CSV_Demo.Inventory> InventoryVMs { get { return _inventoryVMs; } set { _inventoryVMs = value; OnPropertyChange("InventoryVMs"); } }
         public event PropertyChangedEventHandler? PropertyChanged;
-        private DateTime currDate;
-        public DateTime CurrDate
-        {
-            get { return currDate; }
-            set { currDate = value; OnPropertyChange("CurrDate"); }
-        }
-
         public InventoryVM(IDate_TimeService datetimeservice)
         {
             _datetimeservice = datetimeservice;
@@ -41,6 +34,84 @@ namespace BusinessModel
             InventoryVMs = _inventory.ReadCSVFile();
 
         }
+        #region OnPropertyChange
+        private void OnPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public bool CanClick() { return true; }
+        private bool _canDelete = false;
+        public bool CanDelete
+        {
+            get { return _canDelete; }
+            set { _canDelete = value; }
+        }
+        public object _Selection_Param;
+        public object Selection_Param { get { return _Selection_Param; } set { _Selection_Param = value; _canDelete = CanDeleteMethod(); OnPropertyChange("CanDelete"); } }
+        public bool CanDeleteMethod()
+        {
+            return true;
+        } 
+        #endregion
+        #region commands
+        public ICommand ClickCommand_Delete
+        {
+            get
+            {
+                if (_clickcommand_Del == null)
+                {
+                    _clickcommand_Del = new RelayCommand(
+                        param => Remove_Index((int)param));
+                    //param => CanClick());
+                }
+                return _clickcommand_Del;
+            }
+        }
+        public ICommand ClickCommand_Add
+        {
+            get
+            {
+                if (_clickcommand_Add == null)
+                {
+                    _clickcommand_Add = new RelayCommand(
+                        param => Add_Item((Inventory)param),
+                        param => CanClick());
+                }
+                return _clickcommand_Add;
+            }
+        }
+        public ICommand ClickCommand_Update
+        {
+            get
+            {
+                if (_clickcommand_Update == null)
+                {
+                    _clickcommand_Update = new RelayCommand(
+                        param => Update_Item((Inventory)param),
+                        param => CanClick());
+                }
+                return _clickcommand_Update;
+            }
+        }
+        public ICommand ClickCommand_SaveChanges
+        {
+            get
+            {
+                if (_clickcommand_Save == null)
+                {
+                    if (_clickcommand_Save == null)
+                        _clickcommand_Save = new RelayCommand(
+                        param => WriteCSVFile(),
+                        param => CanClick());
+                }
+                return _clickcommand_Save;
+            }
+        }
+        #endregion
+        #region crud    
         public void Remove_Index(int index)
         {
             try
@@ -80,7 +151,7 @@ namespace BusinessModel
                 var existingValue = InventoryVMs.FirstOrDefault(x => x.Id == inventory.Id);
                 if (existingValue != null)
                 {
-                   
+
                     existingValue.Id = inventory.Id;
                     existingValue.Name = inventory.Name;
                     existingValue.Description = inventory.Description;
@@ -112,70 +183,15 @@ namespace BusinessModel
 
             }
         }
-        private void OnPropertyChange(string propertyName)
+        #endregion
+        #region DateTimeService
+        private DateTime currDate;
+        public DateTime CurrDate
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        private bool CanClick()
-        {
-            return true;
-        }
-        public ICommand ClickCommand_Delete
-        {
-            get
-            {
-                if (_clickcommand_Del == null)
-                {
-                    _clickcommand_Del = new RelayCommand(
-                        param => Remove_Index((int)param),
-                        param => CanClick());
-                }
-                return _clickcommand_Del;
-            }
-        }
-        public ICommand ClickCommand_Add
-        {
-            get
-            {
-                if (_clickcommand_Add == null)
-                {
-                    _clickcommand_Add = new RelayCommand(
-                        param => Add_Item((Inventory)param),
-                        param => CanClick());
-                }
-                return _clickcommand_Add;
-            }
-        }
-        public ICommand ClickCommand_Update
-        {
-            get
-            {
-                if (_clickcommand_Update == null)
-                {
-                    _clickcommand_Update = new RelayCommand(
-                        param => Update_Item((Inventory)param),
-                        param => CanClick());
-                }
-                return _clickcommand_Update;
-            }
-        }
-        public ICommand ClickCommand_SaveChanges
-        {
-            get
-            {
-                if (_clickcommand_Save == null)
-                {
-                    if (_clickcommand_Save == null)
-                        _clickcommand_Save= new RelayCommand(
-                        param => WriteCSVFile(),
-                        param => CanClick());
-                }
-                return _clickcommand_Save;
-            }
-        }
+            get { return currDate; }
+            set { currDate = value; OnPropertyChange("CurrDate"); }
+        } 
+        #endregion
 
 
 

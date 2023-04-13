@@ -19,10 +19,10 @@
 
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="ivnGrid" Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding InventoryVMs}" AutoGenerateColumns="True" >
+        <DataGrid x:Name="ivnGrid" Grid.Row="0" Grid.Column="0"  ItemsSource="{Binding InventoryVMs}" AutoGenerateColumns="True" SelectedItem="{Binding Selection_Param}" >
         </DataGrid>
 
-        <Button Grid.Column="0" Background="PaleVioletRed" Grid.Row="1" Height="30" Width="50" Content="Delete" Command="{Binding ClickCommand_Delete}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Margin="137,10,213,104" ></Button>
+        <Button Grid.Column="0" Background="PaleVioletRed" Grid.Row="1" Height="30" Width="50" Content="Delete" Command="{Binding ClickCommand_Delete}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Margin="137,10,213,104" IsEnabled="{Binding CanDelete}" ></Button>
         <Button Grid.Column="0" Background="Aqua" Grid.Row="1" Height="30" Width="50" Content="Add" Command="{Binding ClickCommand_Add}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedItem }" Margin="82,10,268,104" ></Button>
         <Button Background="CornflowerBlue" Grid.Column="0" Grid.Row="1" Height="30" Width="50" Content="Update" Command="{Binding ClickCommand_Update}" CommandParameter="{Binding ElementName=ivnGrid ,Path=SelectedItem }" Margin="27,10,323,104" ></Button>
         <Button Background="GreenYellow" Grid.Column="0" Grid.Row="1" Height="30" Content="Save Changes"  Margin="40,57,226,57" Command="{Binding ClickCommand_SaveChanges}" />
