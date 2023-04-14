@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Inventory" Height="450" Width="800"
         DataContext="{Binding InventoryVM, Source={StaticResource ViewModelLocator}}">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -29,7 +29,22 @@
         <Label Grid.Column="1" Height="50" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Aquamarine" Content="{Binding CurrDate}" Margin="0,0,10,85"/>
         <Button Background= "Coral" Grid.Column="0" Grid.Row="1" Height="30" Content="To Student.Xaml"  Margin="40,104,226,10" Click="Button_Click" />
 
-
-
+        <Button Grid.Column="0" Background="SeaGreen" Grid.Row="1" Height="30" Content="Delete_Trigger" Margin="200,104,109,10" >
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers >
+                        <DataTrigger Binding="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Value="1">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Value="0">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=ivnGrid ,Path=SelectedIndex }" Value="-1">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>
