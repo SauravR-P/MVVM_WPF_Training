@@ -17,6 +17,10 @@ namespace BusinessModel
         {
             get { return IocKernel.Get<Student_ViewModel>(); } // Loading UserControlViewModel will automatically load the binding for IStorage
         }
+        public BooksViewModel BooksViewModel
+        {
+            get { return IocKernel.Get<BooksViewModel>(); } // Loading UserControlViewModel will automatically load the binding for IStorage
+        }
     }
 
 }

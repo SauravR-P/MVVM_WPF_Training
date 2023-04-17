@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API_Service\API_Service.csproj" />
     <ProjectReference Include="..\BackgroundService\BackgroundService.csproj" />
     <ProjectReference Include="..\Commands\Commands.csproj" />
     <ProjectReference Include="..\DataModel\DataModel.csproj" />

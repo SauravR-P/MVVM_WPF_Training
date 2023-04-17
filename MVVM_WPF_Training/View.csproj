@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API_Service\API_Service.csproj" />
     <ProjectReference Include="..\BusinessModel\BusinessModel.csproj" />
   </ItemGroup>
 
