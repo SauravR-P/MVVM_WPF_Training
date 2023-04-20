@@ -1,19 +1,19 @@
 ﻿using System.ComponentModel;
 using System.Xml.Linq;
 
-namespace API_Service.Model
+namespace DataModel.BooksModel
 {
     public class Books : INotifyPropertyChanged
     {
-        private int _id, _price, _quantity;
+        private int _bookid, _price, _quantity;
         private string _bookName, _author;
 
-        public int Id
-        { get { return _id; } set { _id = value; OnPropertyChange("Id"); } }
-        public string Book_Name
+        public int BookId
+        { get { return _bookid; } set { _bookid = value; OnPropertyChange("BookId"); } }
+        public string Name
         {
             get { return _bookName; }
-            set { _bookName = value; OnPropertyChange("Book_Name"); } 
+            set { _bookName = value; OnPropertyChange("Name"); } 
         }
         public string Author
         {

@@ -1,10 +1,10 @@
-﻿using API_Service;
-using API_Service.Model;
+﻿
 using Commands;
-using Microsoft.AspNetCore.Mvc;
+using DataModel.BooksModel;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows.Input;
 
@@ -14,23 +14,23 @@ namespace BusinessModel
     {
 
         private readonly HttpClient _client;
+        string BaseUrl = "https://localhost:7085/";
         private ObservableCollection<Books> _Books ;
-        public ObservableCollection<Books> Books { get { return _Books; } set { _Books = value; OnPropertyChange("Books"); } }
-
+        public ObservableCollection<Books> Books_Obs { get { return _Books; } set { _Books = value; OnPropertyChange("Books"); } }
         public BooksViewModel( HttpClient client)
         {
           
             _client = client;
-            Books = get().Result;
+            Books_Obs = get().Result;
 
-        }
-        string BaseUrl = "https://localhost:7085/";
-
+        }  
+        #region HttpCalls
+        //HttpCall for getting records
         public async Task<ObservableCollection<Books>> get()
         {
             try
             {
-                var url = "https://localhost:7085/GETALL";
+                var url = "https://localhost:7051/Get";
                 var response = "";
                 using (var client = new HttpClient())
                 {
@@ -42,7 +42,6 @@ namespace BusinessModel
                     var tasks = JsonConvert.DeserializeObject<List<Books>>(response);
                     var books = new ObservableCollection<Books>(tasks);
                     return await Task.FromResult<ObservableCollection<Books>>(books);
-
                 }
             }
             catch (Exception ex)
@@ -52,23 +51,19 @@ namespace BusinessModel
             }
 
         }
+        //Detele Method
         public async Task<Task> DeleteById(Books book)
         {
-            BaseUrl = "https://localhost:7085/Delete?id=";
-
-            var id = book.Id;
-            var httpResponse = await _client.DeleteAsync($"{BaseUrl}{id}").ConfigureAwait(false);
-
-            if (!httpResponse.IsSuccessStatusCode)
-            {
-                throw new Exception("Cannot Delete tasks");
-            }
+            var id = book.BookId;
+            Books_Obs.Remove(book);
             return Task.CompletedTask;
         }
-        public async Task<Books> UpsertAsync(Books task)
+
+        //HttpCall for record insert and update
+        public async Task<Books> UpsertAsync()
         {
-            BaseUrl = "https://localhost:7085/Upsert";
-            var content = JsonConvert.SerializeObject(task);
+            BaseUrl = "https://localhost:7051/Upsert";
+            var content = JsonConvert.SerializeObject(Books_Obs);
             var httpResponse = await _client.PostAsync(BaseUrl, new StringContent(content, Encoding.Default, "application/json")).ConfigureAwait(false);
 
             if (!httpResponse.IsSuccessStatusCode)
@@ -78,10 +73,9 @@ namespace BusinessModel
 
             var createdTask = JsonConvert.DeserializeObject<Books>(await httpResponse.Content.ReadAsStringAsync());
             return createdTask;
-        }
-
-      
-
+        } 
+        #endregion
+        #region NotifyChange
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChange(string propertyName)
         {
@@ -91,6 +85,7 @@ namespace BusinessModel
             }
         }
 
+        #endregion
         #region commands
         private ICommand _clickcommand_Del, _clickcommand_Add;
         public bool CanClick() { return true; }
@@ -114,7 +109,7 @@ namespace BusinessModel
                 if (_clickcommand_Add == null)
                 {
                     _clickcommand_Add = new RelayCommand(
-                        param => UpsertAsync((Books)param),
+                        param => UpsertAsync(),
                         param => CanClick());
                 }
                 return _clickcommand_Add;

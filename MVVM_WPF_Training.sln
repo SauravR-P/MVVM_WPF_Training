@@ -1,4 +1,4 @@
-﻿Obs
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
@@ -12,8 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Commands", "Commands\Commands.csproj", "{6E019C37-8143-42E0-9DF2-CD5763C2E37F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundService", "BackgroundService\BackgroundService.csproj", "{DDC6D793-A050-4A18-AF70-4FD438273FF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_Service", "API_Service\API_Service.csproj", "{088C0338-1667-455B-82F2-18E47C4E986A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{DDC6D793-A050-4A18-AF70-4FD438273FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDC6D793-A050-4A18-AF70-4FD438273FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDC6D793-A050-4A18-AF70-4FD438273FF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{088C0338-1667-455B-82F2-18E47C4E986A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{088C0338-1667-455B-82F2-18E47C4E986A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{088C0338-1667-455B-82F2-18E47C4E986A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{088C0338-1667-455B-82F2-18E47C4E986A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
