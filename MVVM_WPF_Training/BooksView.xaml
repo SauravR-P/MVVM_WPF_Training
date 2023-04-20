@@ -45,6 +45,8 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Button Grid.Column="1" Content="Navigate to Students.Xaml" Height="40" Margin="50,69,157,108" Background="Sienna" Foreground="Black" Click="Button_Click"/>
+        <Button Grid.Column="1" Content="Navigate to Inventory.Xaml" Height="40" Margin="50,144,157,33" Background="Aquamarine" Click="Button_Click_1"/>
 
 
 

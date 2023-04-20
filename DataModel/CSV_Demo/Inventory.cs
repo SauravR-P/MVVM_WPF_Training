@@ -12,7 +12,7 @@ namespace DataModel.CSV_Demo
 {
     public class Inventory : INotifyPropertyChanged
     {
-        public static string path = "C:\\Users\\SAURAMES\\source\\repos\\MVVM_WPF_Training\\Inventory.csv";
+        public static string path = "./Inventory.csv";
 
         private int _id, availableStock, price;
         private string name, description;
@@ -33,25 +33,6 @@ namespace DataModel.CSV_Demo
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-        public ObservableCollection<Inventory> ReadCSVFile()
-        {
-            try
-            {
-                using (var reader = new StreamReader(path, Encoding.Default))
-                using (var csv = new CsvReader(reader))
-                {
-                    csv.Configuration.RegisterClassMap<Inventory_Mapping>();
-                    var records = csv.GetRecords<Inventory>().ToList();
-                    var inventories = new ObservableCollection<Inventory>(records);                   
-                    return inventories;
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-
         }
     }
 }

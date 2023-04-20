@@ -20,7 +20,7 @@ namespace BusinessModel
     public class InventoryVM : INotifyPropertyChanged
     {
         private IDate_TimeService _datetimeservice;
-        public static string path = "C:\\Users\\SAURAMES\\source\\repos\\MVVM_WPF_Training\\Inventory.csv";
+        public static string path = "./Inventory.csv";
         private ICommand _clickcommand_Del, _clickcommand_Update, _clickcommand_Add, _clickcommand_Save;
         DataModel.CSV_Demo.Inventory _inventory;
         private ObservableCollection<DataModel.CSV_Demo.Inventory> _inventoryVMs;
@@ -31,7 +31,7 @@ namespace BusinessModel
             _datetimeservice = datetimeservice;
             CurrDate = datetimeservice.GetDate();
             _inventory = new();
-            InventoryVMs = _inventory.ReadCSVFile();
+            InventoryVMs = ReadCSVFile();
 
         }
         #region OnPropertyChange
@@ -190,8 +190,28 @@ namespace BusinessModel
         {
             get { return currDate; }
             set { currDate = value; OnPropertyChange("CurrDate"); }
-        } 
+        }
         #endregion
+        public ObservableCollection<Inventory> ReadCSVFile()
+        {
+            try
+            {
+                using (var reader = new StreamReader(path, Encoding.Default))
+                using (var csv = new CsvReader(reader))
+                {
+                    csv.Configuration.RegisterClassMap<Inventory_Mapping>();
+                    var records = csv.GetRecords<Inventory>().ToList();
+                    var inventories = new ObservableCollection<Inventory>(records);
+                    return inventories;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        }
+
 
 
 
